@@ -22,3 +22,14 @@ spec:
           existingSecret: grafana-admin
           userKey: admin-user
           passwordKey: admin-password
+        extraObjects:
+          - apiVersion: v1
+            kind: Secret
+            metadata:
+              name: grafana-admin
+              labels:
+                app.kubernetes.io/instance: grafana
+            type: Opaque
+            stringData:
+              admin-user: admin
+              admin-password: moody422!
