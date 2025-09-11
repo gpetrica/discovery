@@ -1,0 +1,31 @@
+persistence:
+  enabled: true
+  storageClassName: local-path # or whatever your default SC is
+  accessModes:
+    - ReadWriteOnce
+  size: 0.5Gi
+
+admin:
+  existingSecret: grafana-admin # link to the secret above
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  hosts:
+    - grafana.discovery.local
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: "default"
+        orgId: 1
+        folder: ""
+        type: file
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+dashboardsConfigMaps:
+  default: "grafana-dashboards"

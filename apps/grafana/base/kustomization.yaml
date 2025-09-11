@@ -1,6 +1,8 @@
 resources:
-  - deployment.yaml
-  - service.yaml
-  - pvc.yaml
-  - ingress.yaml
-  - secret.yaml
+  - app.yaml
+  - values-common.yaml
+  # - deployment.yaml
+  # - service.yaml
+  # - pvc.yaml
+  # - ingress.yaml
+  # - secret.yaml
