@@ -1,0 +1,15 @@
+# projects/platform.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: platform
+  namespace: argocd
+spec:
+  destinations:
+    - namespace: '*'
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - 'git@github.com:gpetrica/discovery.git'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
