@@ -3,3 +3,6 @@ kind: Kustomization
 resources:
   - ../../base
   - ../../secrets/grafana-admin-secret.yaml
+
+patchesStrategicMerge:
+  - values-prod.yaml

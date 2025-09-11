@@ -12,7 +12,6 @@ spec:
     helm:
       valueFiles:
         - values-common.yaml # baseline
-        - overlays/prod/values-prod.yaml # env-specific
   destination:
     server: https://kubernetes.default.svc
     namespace: grafana
