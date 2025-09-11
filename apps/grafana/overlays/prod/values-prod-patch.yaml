@@ -7,5 +7,4 @@ spec:
   source:
     helm:
       valueFiles:
-        - apps/grafana/base/values-common.yaml
-        - apps/grafana/overlays/prod/values-prod.yaml
+        - values-prod.yaml
