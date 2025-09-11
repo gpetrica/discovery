@@ -2,7 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base
-  - ../../secrets/grafana-admin-secret.yaml
 
-patchesStrategicMerge:
-  - values-prod.yaml
+patches:
+  - path: values-prod-patch.yaml
