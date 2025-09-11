@@ -9,29 +9,6 @@ spec:
     repoURL: https://grafana.github.io/helm-charts
     chart: grafana
     targetRevision: 8.6.0
-    helm:
-      values: |
-        persistence:
-          enabled: true
-          storageClassName: local-path
-          accessModes: [ "ReadWriteOnce" ]
-          size: 0.5Gi
-        service:
-          type: ClusterIP
-        admin:
-          existingSecret: grafana-admin
-        dashboardProviders:
-          dashboardproviders.yaml:
-            apiVersion: 1
-            providers:
-            - name: 'default'
-              orgId: 1
-              folder: ''
-              type: file
-              options:
-                path: /var/lib/grafana/dashboards/default
-        dashboardsConfigMaps:
-          default: "grafana-dashboards"
   destination:
     server: https://kubernetes.default.svc
     namespace: grafana
