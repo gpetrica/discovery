@@ -8,4 +8,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi # default size for dev/test
+      storage: 2Gi # default size for dev/test
