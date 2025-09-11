@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: signalk
+  namespace: signalk
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/YOUR_GH/discovery.git
+    targetRevision: main
+    path: manifests/signalk/base
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: signalk
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

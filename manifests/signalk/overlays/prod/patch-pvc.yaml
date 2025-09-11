@@ -6,4 +6,4 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 5Gi # bigger in production
+      storage: 5Gi
