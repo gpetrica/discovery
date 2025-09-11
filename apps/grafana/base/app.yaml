@@ -10,8 +10,32 @@ spec:
     chart: grafana
     targetRevision: 8.6.0
     helm:
-      valueFiles:
-        - values-common.yaml # relative to repo root
+      values: |
+        persistence:
+          enabled: true
+          storageClassName: local-path
+          accessModes: [ "ReadWriteOnce" ]
+          size: 0.5Gi
+        service:
+          type: ClusterIP
+        ingress:
+          enabled: true
+          hosts:
+            - grafana.discovery.local
+        admin:
+          existingSecret: grafana-admin
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+            - name: 'default'
+              orgId: 1
+              folder: ''
+              type: file
+              options:
+                path: /var/lib/grafana/dashboards/default
+        dashboardsConfigMaps:
+          default: "grafana-dashboards"
   destination:
     server: https://kubernetes.default.svc
     namespace: grafana
