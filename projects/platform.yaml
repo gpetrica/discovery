@@ -6,10 +6,10 @@ metadata:
   namespace: argocd
 spec:
   destinations:
-    - namespace: '*'
+    - namespace: "*"
       server: https://kubernetes.default.svc
   sourceRepos:
-    - 'git@github.com:gpetrica/discovery.git'
+    - "git@github.com:gpetrica/discovery.git"
   clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"

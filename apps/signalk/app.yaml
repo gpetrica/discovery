@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: signalk
+  namespace: argocd
+spec:
+  project: platform
+  source:
+    repoURL: git@github.com:gpetrica/discovery.git
+    path: manifests/signalk
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: signalk
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
