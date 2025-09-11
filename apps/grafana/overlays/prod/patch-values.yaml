@@ -10,11 +10,25 @@ spec:
         persistence:
           enabled: true
           storageClassName: local-path
-          size: 2Gi    # bigger PVC in prod
-        resources:
-          requests:
-            cpu: 200m
-            memory: 512Mi
-          limits:
-            cpu: 1
-            memory: 1Gi
+          accessModes: [ "ReadWriteOnce" ]
+          size: 5Gi
+        service:
+          type: ClusterIP
+        ingress:
+          enabled: true
+          hosts:
+            - grafana.discovery.local
+        admin:
+          existingSecret: grafana-admin
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+            - name: 'default'
+              orgId: 1
+              folder: ''
+              type: file
+              options:
+                path: /var/lib/grafana/dashboards/default
+        dashboardsConfigMaps:
+          default: "grafana-dashboards"
