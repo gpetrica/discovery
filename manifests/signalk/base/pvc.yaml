@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: signalk-config
-  namespace: signalk
+  namespace: argocd
 spec:
   accessModes:
     - ReadWriteOnce
