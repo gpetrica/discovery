@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: signalk
-  namespace: argocd
+  namespace: signalk
 spec:
   replicas: 1
   selector:

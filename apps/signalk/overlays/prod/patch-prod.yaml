@@ -2,10 +2,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: signalk-config
-  namespace: default
+  namespace: signalk
 spec:
-  accessModes:
-    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi   # adjust if you need more
+      storage: 5Gi # bigger in production
