@@ -3,6 +3,4 @@ kind: Kustomization
 resources:
   - ../../projects/platform.yaml
   - ../../apps/argocd/ingress.yaml
-  - ../../apps/ha/app.yaml
-  - ../../apps/grafana/app.yaml
-  - ../../apps/influx/app.yaml
+  - ../../apps/grafana/overlays/prod
