@@ -18,10 +18,6 @@ spec:
           size: 0.5Gi
         service:
           type: ClusterIP
-        ingress:
-          enabled: true
-          hosts:
-            - grafana.discovery.local
         admin:
           existingSecret: grafana-admin
         dashboardProviders:
