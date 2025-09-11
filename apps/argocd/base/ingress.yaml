@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - host: argocd.discovery.local
+    - host: argocd2.discovery.local
       http:
         paths:
           - path: /
