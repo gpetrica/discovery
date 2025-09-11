@@ -20,15 +20,3 @@ spec:
             - grafana.discovery.local
         admin:
           existingSecret: grafana-admin
-        dashboardProviders:
-          dashboardproviders.yaml:
-            apiVersion: 1
-            providers:
-            - name: 'default'
-              orgId: 1
-              folder: ''
-              type: file
-              options:
-                path: /var/lib/grafana/dashboards/default
-        dashboardsConfigMaps:
-          default: "grafana-dashboards"
