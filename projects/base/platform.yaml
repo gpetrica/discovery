@@ -9,6 +9,9 @@ spec:
       server: https://kubernetes.default.svc
   sourceRepos:
     - "git@github.com:gpetrica/discovery.git"
+    - "https://grafana.github.io/helm-charts"
+    - "https://helm.influxdata.com/"
+    - "https://github.com/home-assistant/helm-charts"
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
