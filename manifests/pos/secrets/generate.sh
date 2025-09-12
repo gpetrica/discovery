@@ -6,4 +6,6 @@ kubectl create secret generic pos-secrets \
 kubeseal \
 	--controller-name=sealed-secrets-controller \
 	--controller-namespace=kube-system \
-	--format yaml <pos-secrets.yaml >../overlays/dev/pos-sealed.yaml
+	--format yaml <pos-secrets.yaml >../overlays/prod/pos-sealed.yaml
+
+rm pos-secrets.yaml
