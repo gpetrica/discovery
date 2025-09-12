@@ -5,4 +5,5 @@ resources:
   - ../../apps/grafana/overlays/prod
   - ../../apps/signalk/overlays/prod
   - ../../apps/influx/overlays/prod
+  - ../../apps/ha/overlays/prod
   - ../../apps/argocd/overlays/prod
