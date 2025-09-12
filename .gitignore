@@ -1,2 +1,3 @@
 kubeconfig-rpi5.yaml
 manifests/pos/base/ghcr-secret.yaml
+manifests/pos/base/secret.yaml

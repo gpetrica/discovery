@@ -5,9 +5,5 @@ metadata:
   namespace: pos
 data:
   RUST_LOG: "info"
-  # service endpoints (DNS works because they are in cluster)
-  RABBITMQ_URL: "amqp://user:password@rabbitmq.rabbitmq:5672/%2f"
-  TYPESENSE_URL: "http://typesense.typesense:8108"
-  POSTGRES_HOST: "postgresql.postgres"
-  POSTGRES_PORT: "5432"
-  POSTGRES_DB: "posdb"
+  ZUPPLER_DOMAIN: "biznettechnologies.com"
+  SERVICE_TOKEN_DURATION_SEC: "3600"
