@@ -19,6 +19,8 @@ spec:
           tokenKey: admin-token
           orgKey: admin-org
           bucketKey: admin-bucket
+          userKey: admin-user
+          passwordKey: admin-password
         ingress:
           enabled: true
           ingressClassName: traefik
