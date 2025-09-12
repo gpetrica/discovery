@@ -20,7 +20,10 @@ spec:
           enabled: true
           ingressClassName: traefik
           hosts:
-            - ha.discovery.local
+            - host: ha.discovery.local
+              paths:
+                - path: /
+                  pathType: Prefix
 
         service:
           type: ClusterIP
