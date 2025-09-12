@@ -10,8 +10,39 @@ spec:
     chart: home-assistant
     targetRevision: 0.3.19 # check latest
     helm:
-      valueFiles:
-        - manifests/ha/base/values.yaml
+      values: |
+        persistence:
+          enabled: true
+          size: 10Gi
+          storageClass: local-path
+
+        ingress:
+          enabled: true
+          ingressClassName: traefik
+          hosts:
+            - ha.discovery.local
+
+        service:
+          type: ClusterIP
+
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1024Mi
+
+        configuration:
+          enabled: true
+          forceInit: false
+          templateConfig: |-
+            default_config:
+
+            http:
+              use_x_forwarded_for: true
+              trusted_proxies:
+                - 0.0.0.0/0
   destination:
     server: https://kubernetes.default.svc
     namespace: home-assistant
