@@ -15,7 +15,7 @@ spec:
           enabled: true
           size: 5Gi
         adminUser:
-          organization: "discovery"
+          organization: influxdb
           bucket: "telemetry"
           user: "admin"
           password: "moody422!"
