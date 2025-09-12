@@ -12,6 +12,7 @@ spec:
     - "https://grafana.github.io/helm-charts"
     - "https://helm.influxdata.com/"
     - "https://github.com/home-assistant/helm-charts"
+    - "http://pajikos.github.io/home-assistant-helm-chart/"
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
