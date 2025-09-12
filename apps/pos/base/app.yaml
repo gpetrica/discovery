@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: git@github.com:gpetrica/discovery.git
     targetRevision: main
-    path: manifests/pos/overlays/prod
+    path: manifests/pos/base
   destination:
     server: https://kubernetes.default.svc
     namespace: pos
