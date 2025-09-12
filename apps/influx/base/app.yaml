@@ -15,9 +15,11 @@ spec:
           enabled: true
           size: 5Gi
         adminUser:
-          organization: discovery
-          bucket: telemetry
-          password: moody422!
+          organization: "discovery"
+          bucket: "telemetry"
+          user: "admin"
+          password: "moody422!"
+          token: "be6171ab-7b79-42b7-98f2-83e1adf86890"
         ingress:
           enabled: true
           ingressClassName: traefik
