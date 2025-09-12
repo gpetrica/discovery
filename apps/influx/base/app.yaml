@@ -17,7 +17,7 @@ spec:
         adminUser:
           organization: discovery
           bucket: telemetry
-          user: admin
+          password: moody422!
           existingSecret: influxdb-auth
         ingress:
           enabled: true
