@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: influxdb
+  namespace: argocd
+spec:
+  project: platform
+  source:
+    repoURL: https://helm.influxdata.com/
+    chart: influxdb2
+    targetRevision: 2.1.2 # check latest version
+    helm:
+      values: |
+        persistence:
+          enabled: true
+          size: 5Gi
+        auth:
+          existingSecret: influxdb2-auth
+          tokenKey: admin-token
+          orgKey: admin-org
+          bucketKey: admin-bucket
+        ingress:
+          enabled: true
+          ingressClassName: traefik
+          hostname: influxdb.discovery.local
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: influxdb
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

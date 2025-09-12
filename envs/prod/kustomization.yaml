@@ -4,4 +4,5 @@ resources:
   - ../../projects/base
   - ../../apps/grafana/overlays/prod
   - ../../apps/signalk/overlays/prod
+  - ../../apps/influx/overlays/prod
   - ../../apps/argocd/overlays/prod
