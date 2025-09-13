@@ -13,6 +13,7 @@ spec:
       values: |
         auth:
           username: admin
+          existingSecret: rabbitmq-auth
           existingPasswordSecret: rabbitmq-auth
           existingPasswordKey: password
 
