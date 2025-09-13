@@ -8,13 +8,13 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: rabbitmq
-    targetRevision: "*" # always pull latest
+    targetRevision: "*"
     helm:
       values: |
         auth:
           username: admin
           existingPasswordSecret: rabbitmq-auth
-          erlangCookie: "supersecretcookie"
+          erlangCookie: "my-super-secret-cookie"   # make sure this is set
 
         persistence:
           enabled: true
@@ -34,28 +34,40 @@ spec:
             cpu: 500m
             memory: 1Gi
 
-        # Health checks with rabbitmq-diagnostics
-        livenessProbe:
-          exec:
-            command:
-              - rabbitmq-diagnostics
-              - -q
-              - ping
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 6
-
         readinessProbe:
           exec:
             command:
               - rabbitmq-diagnostics
               - -q
               - check_running
-          initialDelaySeconds: 30
+          initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 5
-          failureThreshold: 6
+          failureThreshold: 10
+
+        livenessProbe:
+          exec:
+            command:
+              - rabbitmq-diagnostics
+              - -q
+              - ping
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 10
+
+        service:
+          type: ClusterIP
+          port: 5672
+          managerPort: 15672
+
+        ingress:
+          enabled: true
+          hostname: rabbitmq.discovery.local
+          path: /
+          tls: false
+          annotations:
+            kubernetes.io/ingress.class: nginx
 
         extraConfiguration: |-
           cluster_formation.peer_discovery_backend  = rabbit_peer_discovery_k8s
@@ -65,15 +77,6 @@ spec:
           queue_master_locator = min-masters
           queue_type = quorum
 
-        # Expose RabbitMQ management UI via Ingress
-        ingress:
-          enabled: true
-          hostname: rabbitmq.discovery.local
-          path: /
-          tls: false
-          annotations:
-            kubernetes.io/ingress.class: nginx
-            nginx.ingress.kubernetes.io/rewrite-target: /
   destination:
     server: https://kubernetes.default.svc
     namespace: rabbitmq
