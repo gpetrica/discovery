@@ -8,18 +8,17 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: rabbitmq
-    targetRevision: "*"
+    targetRevision: "*" # always pull latest stable chart
     helm:
       values: |
         auth:
           username: admin
           existingPasswordSecret: rabbitmq-auth
-          erlangCookie: mysecretcookie
+          erlangCookie: "supersecretcookie"
 
         persistence:
           enabled: true
-          size: 5Gi
-          # storageClassName: fast-ssd  # if available in your cluster
+          size: 1Gi
 
         clustering:
           enabled: true
@@ -29,11 +28,23 @@ spec:
 
         resources:
           requests:
-            cpu: 300m
-            memory: 1Gi
+            cpu: 200m
+            memory: 512Mi
           limits:
-            cpu: 1
-            memory: 2Gi
+            cpu: 500m
+            memory: 1Gi
+
+        # ✅ Use rabbitmq-diagnostics for probes
+        livenessProbe:
+          exec:
+            command:
+              - rabbitmq-diagnostics
+              - -q
+              - ping
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 10
 
         readinessProbe:
           exec:
@@ -41,21 +52,16 @@ spec:
               - rabbitmq-diagnostics
               - -q
               - check_running
-          initialDelaySeconds: 90
+          initialDelaySeconds: 60
           periodSeconds: 15
           timeoutSeconds: 5
-          failureThreshold: 12
+          failureThreshold: 10
 
-        livenessProbe:
-          exec:
-            command:
-              - rabbitmq-diagnostics
-              - -q
-              - ping
-          initialDelaySeconds: 90
-          periodSeconds: 30
-          timeoutSeconds: 5
-          failureThreshold: 12
+        # ✅ Keep Management UI on 15672 (only via Ingress)
+        service:
+          type: ClusterIP
+          port: 5672
+          managerPort: 15672
 
         ingress:
           enabled: true
@@ -66,12 +72,12 @@ spec:
             kubernetes.io/ingress.class: nginx
 
         extraConfiguration: |-
-          cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+          cluster_formation.peer_discovery_backend  = rabbit_peer_discovery_k8s
           cluster_formation.k8s.host = kubernetes.default.svc.cluster.local
+          cluster_formation.node_cleanup.only_log_warning = true
           cluster_partition_handling = autoheal
           queue_master_locator = min-masters
           queue_type = quorum
-
   destination:
     server: https://kubernetes.default.svc
     namespace: rabbitmq
