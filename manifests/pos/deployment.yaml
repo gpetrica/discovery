@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pos
-  namespace: argocd
+  namespace: pos
 spec:
   replicas: 1
   selector:
@@ -17,10 +17,12 @@ spec:
         - name: ghcr-secret
       containers:
         - name: pos
-          image: ghcr.io/zuppler/pos-backend:latest # 👈 use GHCR image format
+          image: ghcr.io/zuppler/pos-backend:latest
           ports:
-            - containerPort: 8080
-            - containerPort: 8081
+            - name: http
+              containerPort: 8080
+            - name: ws
+              containerPort: 8081
           envFrom:
             - configMapRef:
                 name: pos-config

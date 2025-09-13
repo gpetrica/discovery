@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana
+  name: pos
   namespace: argocd
 spec:
   project: platform
   source:
     repoURL: git@github.com:gpetrica/discovery.git
-    targetRevision: main
     path: manifests/pos
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: pos
