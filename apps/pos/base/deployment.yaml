@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pos
-  namespace: pos
+  namespace: argocd
 spec:
   replicas: 1
   selector:
