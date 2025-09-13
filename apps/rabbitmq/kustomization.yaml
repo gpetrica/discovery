@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - app.yaml
-  - rabbitmq-auth-sealed.yaml
+  - operator.yaml
