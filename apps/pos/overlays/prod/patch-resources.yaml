@@ -4,15 +4,15 @@ metadata:
   name: pos
   namespace: pos
 spec:
-  replicas: 3
+  replicas: 1
   template:
     spec:
       containers:
         - name: pos
           resources:
             requests:
-              cpu: 500m
+              cpu: 100m
               memory: 512Mi
             limits:
               cpu: 1
-              memory: 1Gi
+              memory: 300Mb
