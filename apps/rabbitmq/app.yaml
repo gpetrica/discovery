@@ -14,11 +14,12 @@ spec:
         auth:
           username: admin
           existingPasswordSecret: rabbitmq-auth
-          erlangCookie: "my-super-secret-cookie"   # make sure this is set
+          erlangCookie: mysecretcookie
 
         persistence:
           enabled: true
-          size: 1Gi
+          size: 5Gi
+          # storageClassName: fast-ssd  # if available in your cluster
 
         clustering:
           enabled: true
@@ -28,11 +29,11 @@ spec:
 
         resources:
           requests:
-            cpu: 200m
-            memory: 512Mi
-          limits:
-            cpu: 500m
+            cpu: 300m
             memory: 1Gi
+          limits:
+            cpu: 1
+            memory: 2Gi
 
         readinessProbe:
           exec:
@@ -40,10 +41,10 @@ spec:
               - rabbitmq-diagnostics
               - -q
               - check_running
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 15
           timeoutSeconds: 5
-          failureThreshold: 10
+          failureThreshold: 12
 
         livenessProbe:
           exec:
@@ -51,15 +52,10 @@ spec:
               - rabbitmq-diagnostics
               - -q
               - ping
-          initialDelaySeconds: 60
-          periodSeconds: 15
+          initialDelaySeconds: 90
+          periodSeconds: 30
           timeoutSeconds: 5
-          failureThreshold: 10
-
-        service:
-          type: ClusterIP
-          port: 5672
-          managerPort: 15672
+          failureThreshold: 12
 
         ingress:
           enabled: true
@@ -70,9 +66,8 @@ spec:
             kubernetes.io/ingress.class: nginx
 
         extraConfiguration: |-
-          cluster_formation.peer_discovery_backend  = rabbit_peer_discovery_k8s
+          cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
           cluster_formation.k8s.host = kubernetes.default.svc.cluster.local
-          cluster_formation.node_cleanup.only_log_warning = true
           cluster_partition_handling = autoheal
           queue_master_locator = min-masters
           queue_type = quorum
