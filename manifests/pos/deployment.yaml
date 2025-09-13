@@ -13,13 +13,11 @@ spec:
       labels:
         app: pos
     spec:
-      template:
-        spec:
-          imagePullSecrets:
-            - name: ghcr-secret
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: pos
-          image: git@github.com:zuppler/pos-backend:latest
+          image: ghcr.io/zuppler/pos-backend:latest # 👈 use GHCR image format
           ports:
             - containerPort: 8080
             - containerPort: 8081
