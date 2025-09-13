@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - pos-sealed.yaml
   - ../../base
-patches:
-  - path: patch-resources.yaml
+# patches:
+#   - path: patch-resources.yaml
