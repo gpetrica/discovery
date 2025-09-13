@@ -27,6 +27,12 @@ spec:
                 name: pos-config
             - secretRef:
                 name: pos-secrets
+          env:
+            - name: RABBIT_SVC_URL
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-auth
+                  key: url
           resources:
             requests:
               cpu: 200m

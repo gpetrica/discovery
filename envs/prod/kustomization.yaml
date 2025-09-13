@@ -5,6 +5,7 @@ resources:
   - ../../apps/grafana/overlays/prod
   - ../../apps/signalk/overlays/prod
   - ../../apps/influx/overlays/prod
+  - ../../apps/rabbitmq
   - ../../apps/ha/overlays/prod
   - ../../apps/argocd/overlays/prod
   - ../../apps/pos/overlays/prod
