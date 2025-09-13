@@ -12,7 +12,20 @@ spec:
     helm:
       values: |
         auth:
+          username: admin
           existingPasswordSecret: rabbitmq-auth
+          erlangCookie: "supersecretcookie"
+
+        service:
+          type: ClusterIP
+          port: 5672
+          managerPort: 15672
+
+        readinessProbe:
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 10
 
         persistence:
           enabled: true
