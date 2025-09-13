@@ -15,13 +15,17 @@ spec:
           username: admin
           existingPasswordSecret: rabbitmq-auth
           existingPasswordKey: password
+
         persistence:
           enabled: true
-          size: 10Gi
+          size: 1Gi
+
         clustering:
           enabled: true
           addressType: hostname
+
         replicaCount: 3
+
         resources:
           requests:
             cpu: 200m
@@ -29,6 +33,14 @@ spec:
           limits:
             cpu: 500m
             memory: 1Gi
+
+        extraConfiguration: |-
+          cluster_formation.peer_discovery_backend  = rabbit_peer_discovery_k8s
+          cluster_formation.k8s.host = kubernetes.default.svc.cluster.local
+          cluster_formation.node_cleanup.only_log_warning = true
+          cluster_partition_handling = autoheal
+          queue_master_locator = min-masters
+          queue_type = quorum
   destination:
     server: https://kubernetes.default.svc
     namespace: rabbitmq
