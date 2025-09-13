@@ -16,7 +16,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: pos
-          image: ghcr.io/zuppler/pos-backend:latest
+          image: ghcr.io/zuppler/pos:latest
           ports:
             - name: http
               containerPort: 8080
