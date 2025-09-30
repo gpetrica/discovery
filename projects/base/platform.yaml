@@ -15,7 +15,6 @@ spec:
     - "http://pajikos.github.io/home-assistant-helm-chart/"
     - "https://github.com/rabbitmq/cluster-operator"
     - "https://charts.bitnami.com/bitnami"
-    - "ghcr.io/firefrei/snapcast/server:latest"
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
