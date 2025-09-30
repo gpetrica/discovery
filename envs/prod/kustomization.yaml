@@ -7,3 +7,4 @@ resources:
   - ../../apps/influx/overlays/prod
   - ../../apps/ha/overlays/prod
   - ../../apps/argocd/overlays/prod
+  - ../../apps/play

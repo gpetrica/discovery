@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snapcast
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: snapcast
+  template:
+    metadata:
+      labels:
+        app: snapcast
+    spec:
+      containers:
+        - name: snapserver
+          image: ghcr.io/firefrei/snapcast/server:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1704
+            - containerPort: 1705
+            - containerPort: 1780
+            - containerPort: 1788
+            - containerPort: 3689
+            - containerPort: 5000
+            - containerPort: 5353
+              protocol: UDP
+            - containerPort: 6000
+              protocol: UDP
+            - containerPort: 6001
+              protocol: UDP
+            - containerPort: 6002
+              protocol: UDP
+            - containerPort: 6003
+              protocol: UDP
+            - containerPort: 6004
+              protocol: UDP
+            - containerPort: 6005
+              protocol: UDP
+            - containerPort: 6006
+              protocol: UDP
+            - containerPort: 6007
+              protocol: UDP
+            - containerPort: 6008
+              protocol: UDP
+            - containerPort: 6009
+              protocol: UDP
+            # Uncomment if you want AirPlay2/NQPTP
+            # - containerPort: 7000
+            # - containerPort: 319
+            #   protocol: UDP
+            # - containerPort: 320
+            #   protocol: UDP
+          env:
+            - name: AIRPLAY_CONFIG_ENABLED
+              value: "1"
+            - name: AIRPLAY_SOURCE_NAME
+              value: "DiscoverySpeakers"
+            - name: AIRPLAY_DEVICE_NAME
+              value: "Discovery Speakers"
+            - name: SPOTIFY_CONFIG_ENABLED
+              value: "1"
+            - name: SPOTIFY_SOURCE_NAME
+              value: "Spotify"
+            - name: SPOTIFY_DEVICE_NAME
+              value: "Discovery Spotify"
+            - name: META_CONFIG_ENABLED
+              value: "1"
+            - name: META_SOURCE_NAME
+              value: "Mix"
+            - name: META_SOURCES
+              value: "DiscoverySpeakers/Spotify/HomeAssistant"
+            - name: PIPE_CONFIG_ENABLED
+              value: "1"
+            - name: PIPE_SOURCE_NAME
+              value: "HomeAssistant"
+            - name: PIPE_PATH
+              value: "/app/data/ha_fifo"
+            - name: PIPE_MODE
+              value: "create"
+          volumeMounts:
+            - name: snapcast-data
+              mountPath: /app/data
+      volumes:
+        - name: snapcast-data
+          persistentVolumeClaim:
+            claimName: snapcast-data

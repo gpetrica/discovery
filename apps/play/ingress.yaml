@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: snapcast
+  namespace: default
+spec:
+  rules:
+    - host: play.discovery.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: snapcast
+                port:
+                  number: 1780
